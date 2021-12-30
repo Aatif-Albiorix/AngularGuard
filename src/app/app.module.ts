@@ -16,6 +16,9 @@ import { SignupComponent } from './signup/signup.component';
 import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NoAccessComponent } from './no-access/no-access.component';
+import { AuthGuard } from './guard/auth.guard';
+import { ChildComponent } from './admin/child/child.component';
+import { AdminGuard } from './guard/admin.guard';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,8 @@ import { NoAccessComponent } from './no-access/no-access.component';
     AdminComponent,
     HomeComponent,
     NotFoundComponent,
-    NoAccessComponent
+    NoAccessComponent,
+    ChildComponent
   ],
   imports: [
     BrowserModule,
@@ -33,15 +37,26 @@ import { NoAccessComponent } from './no-access/no-access.component';
     HttpModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
-      { path: 'admin', component: AdminComponent },
+      {  
+        path: 'admin', 
+        component: AdminComponent, 
+        canActivate: [AuthGuard],
+        children: [
+        {
+        path:  'child',
+        component:  ChildComponent,
+        canActivateChild: [AdminGuard]
+        }
+      ] },
       { path: 'login', component: LoginComponent },
       { path: 'no-access', component: NoAccessComponent }
     ])
   ],
   providers: [
     OrderService,
-
+    AuthGuard,
     AuthService,
+    AdminGuard,
 
     // For creating a mock back-end. You don't need these in a real app. 
     fakeBackendProvider,

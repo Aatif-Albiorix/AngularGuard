@@ -4,3 +4,10 @@
 <ul>
   <li *ngFor="let order of orders">{{ order }}</li>
 </ul>
+
+<button (click) = "goToChild()">Child Component</button>
+
+<div *ngIf="display">
+  <child></child>
+</div>
+

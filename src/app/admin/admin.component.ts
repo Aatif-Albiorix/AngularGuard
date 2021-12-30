@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { OrderService } from './../services/order.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,11 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
   orders: any[];
+  display: boolean = false;
 
-  constructor(private orderService: OrderService) { }
+  constructor(private orderService: OrderService, private route: Router) { }
 
   ngOnInit() {
     this.orderService.getOrders()
       .subscribe(orders => this.orders = orders);
+  }
+
+  goToChild() {
+    this.display = true;
   }
 }
