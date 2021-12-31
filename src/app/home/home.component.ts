@@ -1,3 +1,4 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from './../services/auth.service';
 import { Component } from '@angular/core';
 
@@ -8,5 +9,9 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) { }
+
+  addUser() {
+    this.router.navigate(['user'], {relativeTo: this.route});
+  }
 }

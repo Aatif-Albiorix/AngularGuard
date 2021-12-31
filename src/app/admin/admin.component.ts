@@ -1,9 +1,9 @@
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { OrderService } from './../services/order.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-admin',
+  selector: 'admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
@@ -11,7 +11,7 @@ export class AdminComponent implements OnInit {
   orders: any[];
   display: boolean = false;
 
-  constructor(private orderService: OrderService, private route: Router) { }
+  constructor(private orderService: OrderService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.orderService.getOrders()
@@ -19,6 +19,6 @@ export class AdminComponent implements OnInit {
   }
 
   goToChild() {
-    this.display = true;
+    this.router.navigate(['child'], {relativeTo: this.route});
   }
 }
